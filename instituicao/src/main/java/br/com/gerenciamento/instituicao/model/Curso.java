@@ -1,8 +1,11 @@
-package br.com.gerenciamento.instituicao;
+package br.com.gerenciamento.instituicao.model;
+
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 public class Curso {
 
     // Atributos

@@ -1,11 +1,12 @@
-package br.com.gerenciamento.instituicao;
+package br.com.gerenciamento.instituicao.model;
+
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 public class Aluno {
-
-    // Atributos
     private static int proximoID = 1;
     private int ID;
     private String nome;
@@ -46,7 +47,8 @@ public class Aluno {
     }
 
     // Método estático para cadastrar um novo aluno
-    public static void cadastrarAluno(String nome, String dataNascimento) {
-        new Aluno(nome, dataNascimento); // Criando uma nova instância de Aluno e adicionando à lista de alunos cadastrados
+    public static Aluno cadastrarAluno(String nome, String dataNascimento) {
+        Aluno novoAluno = new Aluno(nome, dataNascimento); // Criando uma nova instância de Aluno e adicionando à lista de alunos cadastrados
+        return novoAluno;
     }
 }
