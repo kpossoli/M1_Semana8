@@ -1,15 +1,14 @@
 package br.com.gerenciamento.instituicao.controller;
 
-import br.com.gerenciamento.instituicao.model.Curso;
+import br.com.gerenciamento.instituicao.model.CursoModel;
+import br.com.gerenciamento.instituicao.model.AlunoModel;
 import br.com.gerenciamento.instituicao.service.CursoService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/cursos")
+@RequestMapping("cursos")
 public class CursoController {
 
     private final CursoService cursoService;
@@ -19,17 +18,19 @@ public class CursoController {
         this.cursoService = cursoService;
     }
 
-    // Endpoint para cadastrar um novo curso (POST)
-    @PostMapping
-    public ResponseEntity<Curso> cadastrarCurso(@RequestBody Curso curso) {
-        Curso novoCurso = cursoService.cadastrarCurso(curso.getNome(), curso.getDescricao(), curso.getCargaHoraria());
-        return ResponseEntity.status(HttpStatus.CREATED).body(novoCurso);
-    }
-
     // Endpoint para consultar todos os cursos (GET)
     @GetMapping
-    public ResponseEntity<List<Curso>> consultarTodosCursos() {
-        List<Curso> cursos = cursoService.consultarTodosCursos();
-        return ResponseEntity.ok(cursos);
+    public List<CursoModel> get() {
+        return cursoService.buscarTodos();
+    }
+
+    @PostMapping
+    public CursoModel post(@RequestBody CursoModel curso) throws Exception {
+        return cursoService.salvar(curso);
+    }
+
+    @PostMapping("{id}/add-aluno")
+    public CursoModel post(@PathVariable Integer id, @RequestBody AlunoModel aluno) throws Exception {
+        return cursoService.matricular(id, aluno.getId());
     }
 }
